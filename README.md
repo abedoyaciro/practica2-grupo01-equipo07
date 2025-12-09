@@ -21,12 +21,12 @@ El sistema requiere la implementación de **seis agentes** y la justificación d
 
 | Agente | Tarea Puntual | LLM Recomendado (Justificar en Informe) |
 | :--- | :--- | :--- |
-| 1. Indexador | Consumir, limpiar (chunking), generar embeddings e indexar 100 documentos en **FAISS**. | N/A (Se usa un modelo de Embeddings, no un LLM) |
+| 1. Indexador | Consumir, limpiar (chunking), generar embeddings e indexar 100 documentos en **FAISS**. | **Google Generative AI Embeddings** (`models/embedding-001`) con transporte gRPC |
 | 2. Orquestador | Dirigir el flujo. Determinar el siguiente agente a ejecutar basado en la salida del Clasificador. | **Groq** (para decisiones rápidas y baja latencia). |
-| 3. Clasificador | Identificar la intención del usuario: Búsqueda, Resumen, Comparación, o General. | **Gemini** (para interpretación profunda y comprensión contextual). |
+| 3. Clasificador | Identificar la intención del usuario: Búsqueda, Resumen, Comparación, o General. | **Gemini** (`gemini-2.5-flash`) para interpretación profunda. |
 | 4. Recuperador | Ejecutar búsqueda de similaridad semántica en FAISS y seleccionar los fragmentos más relevantes. | **Groq** (para optimizar la velocidad de recuperación). |
 | 5. Respuesta RAG | Generar la respuesta final combinando la consulta y los fragmentos recuperados, incluyendo **citas**. | **Groq** (para generar respuestas contextuales rápidas). |
-| 6. Evaluador | Evaluar la coherencia, el respaldo contextual y la ausencia de alucinaciones de la respuesta RAG. | **Gemini** (para tareas de razonamiento y validación compleja). |
+| 6. Evaluador | Evaluar la coherencia, el respaldo contextual y la ausencia de alucinaciones de la respuesta RAG. | **Gemini** (`gemini-2.5-flash`) para validación compleja. |
 
 ---
 
@@ -71,3 +71,37 @@ practica2-grupoXX-equipoYY/
 ├── README.md                             \# (Este archivo) Documentación del proyecto
 └── requirements.txt                      \# Dependencias de Python (LangChain, FAISS, LLMs, etc.)
 ```
+
+---
+
+## 🔧 Notas Técnicas de Implementación
+
+### Modelos Utilizados
+
+- **Gemini**: `gemini-2.5-flash` (Clasificación y Evaluación)
+- **Groq**: Para agentes de alta velocidad (Orquestador, Recuperador, Respuesta RAG)
+- **Embeddings**: `models/embedding-001` de Google Generative AI
+
+### Configuración de Transporte
+
+Dado que el sistema puede enfrentar restricciones de red o firewall, **todos los agentes que usan Google Gemini API están configurados con transporte gRPC** en lugar de REST:
+
+```python
+llm = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash",
+    google_api_key=GOOGLE_API_KEY,
+    model_kwargs={"transport": "grpc"}
+)
+```
+
+Esto resuelve problemas de conectividad DNS y timeouts comunes en entornos corporativos o con proxies.
+
+### Indexación
+
+Para crear el vector store FAISS, ejecuta:
+
+```bash
+python src/agents/indexer_agent.py
+```
+
+El indexador usa `GoogleGenerativeAIEmbeddings` con gRPC para generar embeddings de 768 dimensiones de cada fragmento de documento.

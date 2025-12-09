@@ -5,7 +5,7 @@ Este documento explica cómo obtener las credenciales necesarias para ejecutar e
 ## 1. Obtención de API Keys
 
 ### Google Gemini API Key
-Para utilizar los modelos de Google (Gemini Pro) y los Embeddings:
+Para utilizar los modelos de Google (`gemini-2.5-flash`) y los Embeddings (`models/embedding-001`):
 1.  Ve a [Google AI Studio](https://aistudio.google.com/).
 2.  Inicia sesión con tu cuenta de Google.
 3.  Haz clic en **"Get API key"** (Obtener clave API).

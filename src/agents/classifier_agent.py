@@ -16,7 +16,8 @@ class ClassifierAgent:
         self.llm = ChatGoogleGenerativeAI(
             model="gemini-2.5-flash",
             temperature=0,
-            google_api_key=GOOGLE_API_KEY
+            google_api_key=GOOGLE_API_KEY,
+            model_kwargs={"transport": "grpc"}
         )
 
         self.prompt_template = PromptTemplate(

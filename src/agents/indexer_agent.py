@@ -15,19 +15,6 @@ class IndexerAgent:
     def __init__(self):
         self.documents_dir = DOCUMENTS_DIR
         self.vector_store_dir = VECTOR_STORE_DIR
-import os
-import sys
-
-# Ajustar path para importar módulos src
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from src.config import DOCUMENTS_DIR, VECTOR_STORE_DIR, INDEX_NAME, GOOGLE_API_KEY
-
-class IndexerAgent:
-    def __init__(self):
-        self.documents_dir = DOCUMENTS_DIR
-        self.vector_store_dir = VECTOR_STORE_DIR
         self.index_name = INDEX_NAME
         
         # Inicializar Embeddings (usando Gemini/Google)
@@ -36,8 +23,10 @@ class IndexerAgent:
         
         self.embeddings = GoogleGenerativeAIEmbeddings(
             model="models/embedding-001",
-            google_api_key=GOOGLE_API_KEY
+            google_api_key=GOOGLE_API_KEY,
+            model_kwargs={"transport": "grpc"}
         )
+
 
     def load_documents(self):
         print(f"Cargando documentos desde {self.documents_dir}...")

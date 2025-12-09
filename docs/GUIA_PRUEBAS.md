@@ -13,6 +13,8 @@ He analizado el contenido de la carpeta `docs/codigo_referencia` y confirmo que 
 
 **Diferencia Clave**: Hemos evolucionado de notebooks sueltos a una arquitectura modular orientada a objetos (`class Agent`), lista para producción, con separación de responsabilidades y orquestación centralizada.
 
+**Nota Técnica Importante**: Todos los agentes que utilizan Google Gemini API (`ClassifierAgent`, `EvaluatorAgent`, `IndexerAgent`) están configurados con `transport="grpc"` en `model_kwargs` para evitar problemas de conectividad DNS/firewall comunes en entornos corporativos.
+
 ## 2. Configuración del Entorno de Pruebas
 
 Para no afectar tu instalación global de Python, crearemos un entorno virtual.
