@@ -9,9 +9,19 @@ from src.agents.retriever_agent import RetrieverAgent
 from src.agents.rag_response_agent import RagResponseAgent
 from src.agents.evaluator_agent import EvaluatorAgent
 from src.tools.custom_tools import document_summarizer_tool, document_comparison_tool, general_llm_query_tool, trazability_logger_tool
+from langchain_groq import ChatGroq
+from src.config import GROQ_API_KEY
 
 class OrchestratorAgent:
     def __init__(self):
+        # Inicializar LLM propio para decisiones rápidas (Groq)
+        self.llm = ChatGroq(
+            model_name="llama-3.3-70b-versatile",
+            temperature=0,
+            groq_api_key=GROQ_API_KEY
+        )
+        
+        # Inicializar agentes
         self.classifier = ClassifierAgent()
         self.retriever = RetrieverAgent()
         self.rag_agent = RagResponseAgent()
@@ -44,34 +54,75 @@ class OrchestratorAgent:
             
             context = self.retriever.retrieve(query)
             
+            # Registrar contexto recuperado con nombres de documentos
+            # Extraer nombres de documentos del contexto
+            doc_sources = []
+            for line in context.split('\n'):
+                if 'Fuente:' in line:
+                    source = line.split('Fuente:')[1].strip()
+                    if source not in doc_sources:
+                        doc_sources.append(source)
+            
+            fragments_count = len(context.split('--- Documento')) - 1
+            trazability_logger_tool.run(f"Recuperación: {fragments_count} fragmentos de documentos: {', '.join(doc_sources)}")
+            
             while not approved and attempts < max_attempts:
+                attempts += 1
+                trazability_logger_tool.run(f"Generación RAG: Intento {attempts}/{max_attempts}")
+                
                 # Generar respuesta
                 response = self.rag_agent.generate_response(query, context)
                 
                 # Evaluar
                 evaluation = self.evaluator.evaluate(query, context, response)
                 
+                # Registrar evaluación
+                eval_status = "APROBADO" if "APROBADO" in evaluation else "RECHAZADO"
+                trazability_logger_tool.run(f"Evaluación: {eval_status}")
+                
                 if "APROBADO" in evaluation:
                     final_response = response
                     approved = True
                 else:
-                    print(f"Intento {attempts+1} fallido. Razón: {evaluation}")
-                    # En una implementación más compleja, aquí se podría pedir regenerar con feedback
-                    # Por simplicidad, si falla 2 veces, devolvemos la última respuesta con una advertencia.
-                    final_response = f"Nota: Esta respuesta puede no ser perfecta.\n\n{response}"
-                    attempts += 1
+                    if attempts < max_attempts:
+                        print(f"[Sistema] Intento {attempts} no aprobado, regenerando...")
+                    else:
+                        final_response = f"Nota: Esta respuesta puede no ser perfecta.\n\n{response}"
             
             if not approved:
                 final_response = "Lo siento, no pude generar una respuesta verificada con el contexto disponible."
 
         elif intent == "summary":
             # Para resumen, asumimos que se quiere resumir lo que se encuentre relevante
-            # Ojo: Si la query no especifica documento, busca los más relevantes y los resume.
             context = self.retriever.retrieve(query)
+            
+            # Extraer y registrar documentos usados
+            doc_sources = []
+            for line in context.split('\n'):
+                if 'Fuente:' in line:
+                    source = line.split('Fuente:')[1].strip()
+                    if source not in doc_sources:
+                        doc_sources.append(source)
+            
+            fragments_count = len(context.split('--- Documento')) - 1
+            trazability_logger_tool.run(f"Recuperación para resumen: {fragments_count} fragmentos de: {', '.join(doc_sources)}")
+            trazability_logger_tool.run(f"Tool ejecutada: document_summarizer_tool")
             final_response = document_summarizer_tool.run(context)
             
         elif intent == "comparison":
             context = self.retriever.retrieve(query)
+            
+            # Extraer y registrar documentos usados
+            doc_sources = []
+            for line in context.split('\n'):
+                if 'Fuente:' in line:
+                    source = line.split('Fuente:')[1].strip()
+                    if source not in doc_sources:
+                        doc_sources.append(source)
+            
+            fragments_count = len(context.split('--- Documento')) - 1
+            trazability_logger_tool.run(f"Recuperación para comparación: {fragments_count} fragmentos de: {', '.join(doc_sources)}")
+            trazability_logger_tool.run(f"Tool ejecutada: document_comparison_tool")
             final_response = document_comparison_tool.run(context)
 
         # 4. Trazabilidad Final

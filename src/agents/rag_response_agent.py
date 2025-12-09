@@ -26,7 +26,7 @@ class RagResponseAgent:
             
             Reglas:
             1. Usa el contexto para responder. Si la respuesta no está en el contexto, dilo claramente.
-            2. Menciona la fuente (nombre del documento) cuando sea posible (usando la información del contexto).
+            2. Cuando cites información, menciona el nombre del documento entre corchetes (ejemplo: "según [nombre del documento]...").
             3. Sé profesional, claro y conciso.
             4. Responde siempre en Español.
 

@@ -50,5 +50,6 @@ class EvaluatorAgent:
         """Evalúa la calidad de la respuesta."""
         print(f"--- [Evaluador] Verificando respuesta... ---")
         evaluation = self.chain.invoke({"query": query, "context": context, "response": response})
-        print(f"--- [Evaluador] Resultado: {evaluation} ---")
+        eval_status = "APROBADO" if "APROBADO" in evaluation else "RECHAZADO"
+        print(f"--- [Evaluador] Resultado: {eval_status} ---")
         return evaluation.strip()

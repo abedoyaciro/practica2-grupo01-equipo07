@@ -68,8 +68,26 @@ class IndexerAgent:
 
     def create_vector_store(self, chunks):
         print("Creando almacén vectorial FAISS...")
+        print("Generando embeddings (esto puede tardar varios minutos)...")
         try:
-            vector_store = FAISS.from_documents(chunks, self.embeddings)
+            # Procesar en batches con barra de progreso
+            batch_size = 100
+            total_batches = (len(chunks) + batch_size - 1) // batch_size
+            
+            # Crear vector store con el primer batch
+            first_batch = chunks[:batch_size]
+            vector_store = FAISS.from_documents(first_batch, self.embeddings)
+            
+            # Procesar batches restantes con progreso
+            from tqdm import tqdm
+            for i in tqdm(range(batch_size, len(chunks), batch_size), 
+                         desc="Procesando embeddings",
+                         initial=1,
+                         total=total_batches):
+                batch = chunks[i:i+batch_size]
+                batch_store = FAISS.from_documents(batch, self.embeddings)
+                vector_store.merge_from(batch_store)
+                time.sleep(2)  # Delay para respetar rate limits
             
             # Guardar el índice
             save_path = os.path.join(self.vector_store_dir, self.index_name)

@@ -1,0 +1,218 @@
+[
+    {
+        "timestamp": "2025-12-09T01:41:32.575170",
+        "log": "Inicio de consulta: Hola, cómo estás?"
+    },
+    {
+        "timestamp": "2025-12-09T01:41:34.497912",
+        "log": "Intención clasificada: general"
+    },
+    {
+        "timestamp": "2025-12-09T01:41:51.149268",
+        "log": "Inicio de consulta: Buenas noches"
+    },
+    {
+        "timestamp": "2025-12-09T01:41:52.809902",
+        "log": "Intención clasificada: general"
+    },
+    {
+        "timestamp": "2025-12-09T01:42:58.866764",
+        "log": "Inicio de consulta: Hablame de A Primer on Artificial Intelligence and Machine Learning for the Financial Services Industry"
+    },
+    {
+        "timestamp": "2025-12-09T01:43:01.668634",
+        "log": "Intención clasificada: summary"
+    },
+    {
+        "timestamp": "2025-12-09T09:27:28.637923",
+        "log": "Inicio de consulta: Sobre qué me puedes hablar?"
+    },
+    {
+        "timestamp": "2025-12-09T09:27:30.354659",
+        "log": "Intención clasificada: general"
+    },
+    {
+        "timestamp": "2025-12-09T09:27:32.181582",
+        "log": "Respuesta final generada para intención general"
+    },
+    {
+        "timestamp": "2025-12-09T09:28:01.154424",
+        "log": "Inicio de consulta: Quién eres?"
+    },
+    {
+        "timestamp": "2025-12-09T09:28:05.928260",
+        "log": "Intención clasificada: general"
+    },
+    {
+        "timestamp": "2025-12-09T09:28:35.585752",
+        "log": "Respuesta final generada para intención general"
+    },
+    {
+        "timestamp": "2025-12-09T09:29:07.319346",
+        "log": "Inicio de consulta: Hablame sobre intraday overreaction of stock prices"
+    },
+    {
+        "timestamp": "2025-12-09T09:29:10.611863",
+        "log": "Intención clasificada: summary"
+    },
+    {
+        "timestamp": "2025-12-09T09:30:01.886479",
+        "log": "Respuesta final generada para intención summary"
+    },
+    {
+        "timestamp": "2025-12-09T09:31:48.903135",
+        "log": "Inicio de consulta: Cuáles son los factores del modelo de fama-franch?"
+    },
+    {
+        "timestamp": "2025-12-09T09:32:05.294195",
+        "log": "Intención clasificada: search"
+    },
+    {
+        "timestamp": "2025-12-09T09:32:13.043063",
+        "log": "Respuesta final generada para intención search"
+    },
+    {
+        "timestamp": "2025-12-09T09:33:21.148571",
+        "log": "Inicio de consulta: Resume el documento sobre volatilidad implicita"
+    },
+    {
+        "timestamp": "2025-12-09T09:33:22.354863",
+        "log": "Intención clasificada: summary"
+    },
+    {
+        "timestamp": "2025-12-09T09:34:09.850562",
+        "log": "Respuesta final generada para intención summary"
+    },
+    {
+        "timestamp": "2025-12-09T09:36:32.434726",
+        "log": "Inicio de consulta: REsume Asset pricing with liquidity risk"
+    },
+    {
+        "timestamp": "2025-12-09T09:36:33.702682",
+        "log": "Intención clasificada: summary"
+    },
+    {
+        "timestamp": "2025-12-09T09:36:36.181210",
+        "log": "Respuesta final generada para intención summary"
+    },
+    {
+        "timestamp": "2025-12-09T09:37:42.076761",
+        "log": "Inicio de consulta: Resume A Primer on Artificial Intelligence and Machine Learning for the Financial Services Industry"
+    },
+    {
+        "timestamp": "2025-12-09T09:37:43.477533",
+        "log": "Intención clasificada: summary"
+    },
+    {
+        "timestamp": "2025-12-09T09:37:45.843146",
+        "log": "Respuesta final generada para intención summary"
+    },
+    {
+        "timestamp": "2025-12-09T09:39:21.163703",
+        "log": "Inicio de consulta: qué aplicaciones tiene la IA y el ML en la industria financiera? "
+    },
+    {
+        "timestamp": "2025-12-09T09:39:24.529308",
+        "log": "Intención clasificada: search"
+    },
+    {
+        "timestamp": "2025-12-09T09:39:36.356661",
+        "log": "Respuesta final generada para intención search"
+    },
+    {
+        "timestamp": "2025-12-09T09:43:34.017821",
+        "log": "Inicio de consulta: Qué es el riesgo de mercado?"
+    },
+    {
+        "timestamp": "2025-12-09T09:43:36.529884",
+        "log": "Intención clasificada: search"
+    },
+    {
+        "timestamp": "2025-12-09T09:45:24.062541",
+        "log": "Respuesta final generada para intención search"
+    },
+    {
+        "timestamp": "2025-12-09T09:45:54.171215",
+        "log": "Inicio de consulta: Compara el riesgo de crédito vs riesgo de mercado"
+    },
+    {
+        "timestamp": "2025-12-09T09:47:02.437314",
+        "log": "Intención clasificada: comparison"
+    },
+    {
+        "timestamp": "2025-12-09T11:30:41.298656",
+        "log": "Inicio de consulta: Como se usa la estadística bayesiana para implementar modelos de inversión?"
+    },
+    {
+        "timestamp": "2025-12-09T11:30:46.412641",
+        "log": "Intención clasificada: search"
+    },
+    {
+        "timestamp": "2025-12-09T11:30:46.820854",
+        "log": "Recuperación: 5 fragmentos de documentos: Bayesian Data Analysis.pdf"
+    },
+    {
+        "timestamp": "2025-12-09T11:30:46.823857",
+        "log": "Generación RAG: Intento 1/2"
+    },
+    {
+        "timestamp": "2025-12-09T11:30:59.532561",
+        "log": "Evaluación: APROBADO"
+    },
+    {
+        "timestamp": "2025-12-09T11:30:59.535102",
+        "log": "Respuesta final generada para intención search"
+    },
+    {
+        "timestamp": "2025-12-09T11:32:06.552170",
+        "log": "Inicio de consulta: Hola, cómo estás? Sobre qué tienes conocimiento?"
+    },
+    {
+        "timestamp": "2025-12-09T11:32:09.049131",
+        "log": "Intención clasificada: general"
+    },
+    {
+        "timestamp": "2025-12-09T11:32:10.173635",
+        "log": "Respuesta final generada para intención general"
+    },
+    {
+        "timestamp": "2025-12-09T11:33:14.991464",
+        "log": "Inicio de consulta: Compara el riesgo de crédito vs riesgo de mercado"
+    },
+    {
+        "timestamp": "2025-12-09T11:33:17.580529",
+        "log": "Intención clasificada: comparison"
+    },
+    {
+        "timestamp": "2025-12-09T11:33:18.904553",
+        "log": "Recuperación para comparación: 5 fragmentos de: Pykhtin, Rosen - 2010 - Pricing Counterparty Risk at the Trade Level and CVA Allocations.pdf, Li - 2000 - On Default Correlation.pdf, Torresetti, Brigo, Pallavicini - 2009 - Risk-neutral versus objective loss distribution and CDO tranche valuation.pdf, Reads - 2014 - Valuation of Credit Default Swaps.pdf, Pykhtin, Zhu - 2007 - A Guide to Modelling Counterparty Credit Risk.pdf"
+    },
+    {
+        "timestamp": "2025-12-09T11:33:18.908793",
+        "log": "Tool ejecutada: document_comparison_tool"
+    },
+    {
+        "timestamp": "2025-12-09T11:33:21.240132",
+        "log": "Respuesta final generada para intención comparison"
+    },
+    {
+        "timestamp": "2025-12-09T11:38:21.701526",
+        "log": "Inicio de consulta: Compara el riesgo de crédito vs riesgo de mercado"
+    },
+    {
+        "timestamp": "2025-12-09T11:38:23.634501",
+        "log": "Intención clasificada: comparison"
+    },
+    {
+        "timestamp": "2025-12-09T11:38:24.421723",
+        "log": "Recuperación para comparación: 0 fragmentos de: "
+    },
+    {
+        "timestamp": "2025-12-09T11:38:24.425729",
+        "log": "Tool ejecutada: document_comparison_tool"
+    },
+    {
+        "timestamp": "2025-12-09T11:38:26.635895",
+        "log": "Respuesta final generada para intención comparison"
+    }
+]

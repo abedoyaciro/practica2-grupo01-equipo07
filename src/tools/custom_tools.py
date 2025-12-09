@@ -42,7 +42,8 @@ def semantic_search_tool(query: str) -> str:
     docs = vector_store.similarity_search(query, k=5)
     result = ""
     for i, doc in enumerate(docs):
-        result += f"--- Documento {i+1} ---\nFuente: {os.path.basename(doc.metadata.get('source', 'Desconocido'))}\nContenido: {doc.page_content}\n\n"
+        source_name = os.path.basename(doc.metadata.get('source', 'Desconocido')).replace('.pdf', '')
+        result += f"--- [{source_name}] ---\nContenido: {doc.page_content}\n\n"
     return result
 
 # --- Tool 2: Resumidor de Documentos ---
