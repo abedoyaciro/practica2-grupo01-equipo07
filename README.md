@@ -79,7 +79,7 @@ practica2-grupoXX-equipoYY/
 ### Modelos Utilizados
 
 - **Gemini**: `gemini-2.5-flash` (Clasificación y Evaluación)
-- **Groq**: Para agentes de alta velocidad (Orquestador, Recuperador, Respuesta RAG)
+- **Groq**: `llama-3.3-70b-versatile` (Orquestador, Recuperador, Respuesta RAG)
 - **Embeddings**: `models/embedding-001` de Google Generative AI
 
 ### Configuración de Transporte

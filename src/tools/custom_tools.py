@@ -4,15 +4,19 @@ import datetime
 from typing import List, Optional
 from langchain.tools import BaseTool, tool
 from langchain_community.vectorstores import FAISS
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from src.config import VECTOR_STORE_DIR, INDEX_NAME, GOOGLE_API_KEY, GROQ_API_KEY, LOGS_FILE
 
 # --- Configuración Inicial ---
-# Usamos el MISMO modelo local que en el indexador
-embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+# Usamos el MISMO modelo de embeddings que en el indexador (Google Generative AI)
+embeddings = GoogleGenerativeAIEmbeddings(
+    model="models/embedding-001",
+    google_api_key=GOOGLE_API_KEY,
+    model_kwargs={"transport": "grpc"}
+)
 
 # Cargar Vector Store (Se asume que ya existe, si no, se debe manejar el error)
 try:
@@ -26,7 +30,7 @@ except Exception as e:
     vector_store = None
 
 # Inicializar LLM para herramientas (Groq para rapidez)
-llm_groq = ChatGroq(model_name="llama3-70b-8192", temperature=0, groq_api_key=GROQ_API_KEY)
+llm_groq = ChatGroq(model_name="llama-3.3-70b-versatile", temperature=0, groq_api_key=GROQ_API_KEY)
 
 # --- Tool 1: Búsqueda Semántica ---
 @tool

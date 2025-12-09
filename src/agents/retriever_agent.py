@@ -14,7 +14,7 @@ class RetrieverAgent:
     def __init__(self):
         # Inicializar Groq para velocidad en recuperación
         self.llm = ChatGroq(
-            model_name="llama3-70b-8192",
+            model_name="llama-3.3-70b-versatile",
             temperature=0,
             groq_api_key=GROQ_API_KEY
         )
