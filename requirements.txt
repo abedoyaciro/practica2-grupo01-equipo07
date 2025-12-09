@@ -1,0 +1,11 @@
+langchain>=0.1.0
+langchain-google-genai
+langchain-groq
+langchain-community
+faiss-cpu
+pypdf
+python-dotenv
+tiktoken
+numpy
+pandas
+tqdm

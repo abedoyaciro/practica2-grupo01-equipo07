@@ -1,0 +1,27 @@
+# Entorno Virtual
+venv/
+.venv/
+env/
+__pycache__/
+
+# Variables de entorno y secretos
+.env
+.env.local
+config.local.py
+
+# Archivos de la practica (Output y Datos procesados de FAISS)
+# data/vector_store/
+# output/*.json
+# output/*.log
+
+# Código de Referencia (Solicitado ignorar)
+docs/codigo_referencia/
+data/documents/*
+
+# IDEs
+.vscode/
+.idea/
+
+# Sistema Operativo
+.DS_Store
+Thumbs.db
