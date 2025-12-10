@@ -55,15 +55,12 @@ class OrchestratorAgent:
             context = self.retriever.retrieve(query)
             
             # Registrar contexto recuperado con nombres de documentos
-            # Extraer nombres de documentos del contexto
-            doc_sources = []
-            for line in context.split('\n'):
-                if 'Fuente:' in line:
-                    source = line.split('Fuente:')[1].strip()
-                    if source not in doc_sources:
-                        doc_sources.append(source)
+            # Extraer nombres de documentos del contexto (nuevo formato: --- [nombre] ---)
+            import re
+            doc_sources = re.findall(r'--- \[(.+?)\] ---', context)
+            doc_sources = list(dict.fromkeys(doc_sources))  # Eliminar duplicados manteniendo orden
             
-            fragments_count = len(context.split('--- Documento')) - 1
+            fragments_count = len(re.findall(r'--- \[.+?\] ---', context))
             trazability_logger_tool.run(f"Recuperación: {fragments_count} fragmentos de documentos: {', '.join(doc_sources)}")
             
             while not approved and attempts < max_attempts:
@@ -96,15 +93,12 @@ class OrchestratorAgent:
             # Para resumen, asumimos que se quiere resumir lo que se encuentre relevante
             context = self.retriever.retrieve(query)
             
-            # Extraer y registrar documentos usados
-            doc_sources = []
-            for line in context.split('\n'):
-                if 'Fuente:' in line:
-                    source = line.split('Fuente:')[1].strip()
-                    if source not in doc_sources:
-                        doc_sources.append(source)
+            # Extraer y registrar documentos usados (nuevo formato)
+            import re
+            doc_sources = re.findall(r'--- \[(.+?)\] ---', context)
+            doc_sources = list(dict.fromkeys(doc_sources))  # Eliminar duplicados
             
-            fragments_count = len(context.split('--- Documento')) - 1
+            fragments_count = len(re.findall(r'--- \[.+?\] ---', context))
             trazability_logger_tool.run(f"Recuperación para resumen: {fragments_count} fragmentos de: {', '.join(doc_sources)}")
             trazability_logger_tool.run(f"Tool ejecutada: document_summarizer_tool")
             final_response = document_summarizer_tool.run(context)
@@ -112,15 +106,12 @@ class OrchestratorAgent:
         elif intent == "comparison":
             context = self.retriever.retrieve(query)
             
-            # Extraer y registrar documentos usados
-            doc_sources = []
-            for line in context.split('\n'):
-                if 'Fuente:' in line:
-                    source = line.split('Fuente:')[1].strip()
-                    if source not in doc_sources:
-                        doc_sources.append(source)
+            # Extraer y registrar documentos usados (nuevo formato)
+            import re
+            doc_sources = re.findall(r'--- \[(.+?)\] ---', context)
+            doc_sources = list(dict.fromkeys(doc_sources))  # Eliminar duplicados
             
-            fragments_count = len(context.split('--- Documento')) - 1
+            fragments_count = len(re.findall(r'--- \[.+?\] ---', context))
             trazability_logger_tool.run(f"Recuperación para comparación: {fragments_count} fragmentos de: {', '.join(doc_sources)}")
             trazability_logger_tool.run(f"Tool ejecutada: document_comparison_tool")
             final_response = document_comparison_tool.run(context)

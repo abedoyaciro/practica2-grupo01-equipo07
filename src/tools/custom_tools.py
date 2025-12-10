@@ -52,7 +52,7 @@ def document_summarizer_tool(text: str) -> str:
     """Genera un resumen conciso del texto proporcionado."""
     prompt = PromptTemplate(
         input_variables=["text"],
-        template="Por favor, genera un resumen conciso y bien estructura del siguiente texto:\n\n{text}\n\nResumen:"
+        template="Por favor, genera un resumen conciso y bien estructurado del siguiente texto:\n\n{text}\n\nResumen:"
     )
     chain = prompt | llm_groq | StrOutputParser()
     return chain.invoke({"text": text})
